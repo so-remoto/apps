@@ -1,5 +1,6 @@
 {
     "material-icon-theme.folders.associations": {
         "(PAGES)": "SRC-tauri",
+        "servicos": "stencil",
     }
 }
