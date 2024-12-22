@@ -1,6 +1,3 @@
-const saudacao: string = 'Olá, Mundo!';
-console.log(saudacao);
-
 import express from 'express';
 
 const app = express();
