@@ -1,4 +1,9 @@
 import express from 'express';
+import { config } from 'dotenv';
+import path from 'path';
+
+// Carrega as variáveis de ambiente do arquivo .env na pasta backend
+config({ path: path.resolve(__dirname, 'backend/.env') });
 
 const app = express();
 const port = 3001;
