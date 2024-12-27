@@ -1,4 +1,3 @@
-import { Data } from "../shared"
 import { Perfil } from "./Perfil"
 
 export interface Usuario {
@@ -6,12 +5,12 @@ export interface Usuario {
     nomeCompleto: string
     email: string
     senha:string
-    dataCriacao: Data
+    dataCriacao?: Date
     ativo: boolean
-    tokenRecuperar?: {}
-    tokenExpiracao?: {}
+    tokenRecuperar?: string
+    tokenExpiracao?: string
     telefone: string
-    imagem: URL
-    perfis: Perfil
+    imagem: string
+    perfis: Perfil[]
 
 }

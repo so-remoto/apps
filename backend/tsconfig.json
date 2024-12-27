@@ -7,7 +7,8 @@
     "esModuleInterop": true,                                
     "forceConsistentCasingInFileNames": true,            
     "strict": true,                                
-    "skipLibCheck": true                     
+    "skipLibCheck": true,
+    "paths": { "@core/*": ["../../packages/core/src/*"] }                    
   },
   "include": ["src/**/*"]
 }

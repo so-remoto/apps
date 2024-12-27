@@ -1,6 +1,3 @@
-
-import Id from "./Id";
-import Senha from "./Senha";
-import Data from "./Data";
-
-export { Id, Senha, Data };
+export { default as Id } from "./Id";
+export { default as Senha } from "./Senha";
+export type { default as Data } from "./Data";
