@@ -53,7 +53,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
     if (usuarioAtualizado) {
       res.status(200).json(usuarioAtualizado);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: "Usuário não encontrado" });
     }
   } catch (error) {
     console.error(`Erro ao atualizar usuário com ID, Controller ${req.params.id}:`, error);

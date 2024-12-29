@@ -66,7 +66,7 @@ export const criarUsuario = async (usuario: Usuario): Promise<Usuario> => {
     return novoUsuario as unknown as Usuario;
   } catch (error) {
     console.error('Erro ao criar usuário:', error);
-    throw new Error('Erro ao criar usuário: ' + (error instanceof Error ? error.message : 'Erro desconhecido'));
+    throw new Error("Erro ao criar usuário:" + (error instanceof Error ? error.message : 'Erro desconhecido'));
   }
 }
 
