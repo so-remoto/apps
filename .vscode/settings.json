@@ -3,5 +3,8 @@
         "(PAGES)": "SRC-tauri",
         "servicos": "stencil",
         "repositories": "element",
+        "_tests_": "tasks",
+        "case-use": "plastic",
+        "groups": "ci",
     }
 }

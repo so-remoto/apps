@@ -1,7 +1,6 @@
-
 import { PrismaClient } from "@prisma/client";
 import { Usuario } from "../../../../packages/core";
-import { Data as DataAlias } from "../../../../packages/core/";
+import { Data as DataAlias } from "../../../../packages/core";
 import Joi from 'joi';
 
 const repo = new PrismaClient();
@@ -22,17 +21,16 @@ const usuarioSchema = Joi.object({
   })).optional()
 });
 
-const idSchema = Joi.string().uuid().required();
+const idSchema = Joi.string().guid({ version: 'uuidv4' }).required();
 
 export const obterUsuarios = async (): Promise<Usuario[]> => {
   try {
-       const usuarios = await repo.usuario.findMany({
+    const usuarios = await repo.usuario.findMany({
       include: {
         perfis: true // Inclui perfis relacionados
       }
     });
     return usuarios as unknown as Usuario[];
-    
   } catch (error) {
     console.error('Erro ao obter usuários:', error);
     throw new Error('Erro ao obter usuários: ' + (error instanceof Error ? error.message : 'Erro desconhecido'));

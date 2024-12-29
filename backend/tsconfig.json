@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2016",                                   
-    "module": "commonjs",                               
-    "rootDir": "./src",                              
-    "outDir": "./dist",                                 
-    "esModuleInterop": true,                                
-    "forceConsistentCasingInFileNames": true,            
-    "strict": true,                                
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "skipLibCheck": true,
-    "paths": { "@core/*": ["../../packages/core/src/*"] }                    
+    "types": ["jest"],
+    "paths": { "@core/*": ["../../packages/core/src/*"] }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "_tests_"]
 }
