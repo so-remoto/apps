@@ -1,6 +1,7 @@
+
 import fetch from 'node-fetch';
 import { Usuario } from '../../../../packages/core/dist';
-// Defina a URL base da API
+// Define a URL base da API
 const API_URL = 'http://localhost:3001';
 
 
@@ -14,10 +15,10 @@ async function getUsers(): Promise<Usuario[]> {
     return response.json() as Promise<Usuario[]>;
   } catch (error) {
     console.error('Erro na requisição GET /users:', error);
-    throw error; // Re-lança o erro para que o chamador possa lidar com ele
+    throw error; // Re-lança o erro 
   }
 }
-// Função para criar um novo usuário
+
 export async function createUser(usuario: any): Promise<any> {
   try {
     const response = await fetch(`${API_URL}/users`, {
@@ -37,7 +38,7 @@ export async function createUser(usuario: any): Promise<any> {
     throw error;
   }
 }
-// Função para atualizar um usuário
+
 export async function updateUser(id: string, usuario: any): Promise<any> {
   try {
     const response = await fetch(`${API_URL}/users/${id}`, {
@@ -57,7 +58,7 @@ export async function updateUser(id: string, usuario: any): Promise<any> {
     throw error;
   }
 }
-// Função para deletar um usuário
+
 export async function deleteUser(id: string): Promise<void> {
   try {
     const response = await fetch(`${API_URL}/users/${id}`, {

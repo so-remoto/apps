@@ -1,6 +1,7 @@
 
 import { Router } from 'express';
-import { getUsers, getUserById, createUser, updateUser, deleteUser } from '../controllers/useController'; // Ajuste o caminho conforme necessário
+import { getUsers, getUserById, createUser, updateUser, deleteUser } from '../controllers/useController'; 
+
 const router = Router();
 router.get('/users', getUsers); 
 router.get('/users/:id', getUserById); 

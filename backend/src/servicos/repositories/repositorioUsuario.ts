@@ -1,3 +1,4 @@
+
 import { PrismaClient } from "@prisma/client";
 import { Usuario } from "../../../../packages/core";
 import { Data as DataAlias } from "../../../../packages/core/";
