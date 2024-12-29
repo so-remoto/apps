@@ -23,7 +23,7 @@ model Usuario {
   tokenRecuperar String? // Opcional
   tokenExpiracao DateTime? // Opcional
   telefone       String
-  imagem         String
+  imagem         String?
   perfis         Perfil[]  @relation("UsuarioPerfis")
 }
 

@@ -10,7 +10,7 @@ export interface Usuario {
     tokenRecuperar?: string
     tokenExpiracao?: string
     telefone: string
-    imagem: string
+    imagem?: string
     perfis: Perfil[]
 
 }

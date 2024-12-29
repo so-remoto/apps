@@ -6,7 +6,11 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
     const usuarios = await obterUsuarios();
     res.status(200).json(usuarios);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao listar usuários' });
+    console.error('Erro ao listar usuários, Controller:', error);
+    res.status(500).json({
+      error: 'Erro ao listar usuários, Controller',
+      details: error instanceof Error ? error.message : 'Erro desconhecido'
+    });
   }
 }
 
@@ -17,10 +21,14 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
     if (usuario) {
       res.status(200).json(usuario);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: 'Usuário não encontrado, Controller' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao obter usuário' });
+    console.error(`Erro ao obter usuário com ID, Controller ${req.params.id}:`, error);
+    res.status(500).json({
+      error: 'Erro ao obter usuário, Controller',
+      details: error instanceof Error ? error.message : 'Erro desconhecido'
+    });
   }
 }
 
@@ -29,7 +37,12 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
     const novoUsuario = await criarUsuario(req.body);
     res.status(201).json(novoUsuario);
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao criar usuário' });
+    console.error('Erro ao criar usuário, Controller:', error);
+    const statusCode = error instanceof Error && error.message.includes('validação') ? 400 : 500;
+    res.status(statusCode).json({
+      error: 'Erro ao criar usuário',
+      details: error instanceof Error ? error.message : 'Erro desconhecido'
+    });
   }
 }
 
@@ -43,7 +56,12 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
       res.status(404).json({ error: 'Usuário não encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao atualizar usuário' });
+    console.error(`Erro ao atualizar usuário com ID, Controller ${req.params.id}:`, error);
+    const statusCode = error instanceof Error && error.message.includes('validação') ? 400 : 500;
+    res.status(statusCode).json({
+      error: 'Erro ao atualizar usuário',
+      details: error instanceof Error ? error.message : 'Erro desconhecido'
+    });
   }
 }
 
@@ -53,6 +71,10 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
     await deletarUsuario(id);
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: 'Erro ao deletar usuário' });
+    console.error(`Erro ao deletar usuário com ID, Controller ${req.params.id}:`, error);
+    res.status(500).json({
+      error: 'Erro ao deletar usuário',
+      details: error instanceof Error ? error.message : 'Erro desconhecido'
+    });
   }
 }

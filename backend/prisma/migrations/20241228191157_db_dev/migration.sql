@@ -12,7 +12,7 @@ CREATE TABLE "Usuario" (
     "tokenRecuperar" TEXT,
     "tokenExpiracao" TIMESTAMP(3),
     "telefone" TEXT NOT NULL,
-    "imagem" TEXT NOT NULL,
+    "imagem" TEXT,
 
     CONSTRAINT "Usuario_pkey" PRIMARY KEY ("id")
 );

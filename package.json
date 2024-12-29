@@ -2,20 +2,22 @@
   "name": "apps",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\" \"npm run dev-package\"",
+    "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\" \"npm run dev-package\", tsup src/index.ts --dts --watch --ignore-watch dist",
     "dev-frontend": "cd frontend && npm run dev",
     "dev-backend": "cd backend && npm run dev",
     "dev-package": "cd packages/core && npm run dev",
     "build-frontend": "cd frontend && npm run build",
     "build-backend": "cd backend && npm run build",
-    "build-core": "cd packages/core && npm build",
+    "build-core": "cd packages/core && npm run build", 
     "build": "concurrently \"npm run build-frontend\" \"npm run build-backend\" \"npm run build-core\""
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
   },
-  "dependencies": {
+  "dependencies": {    
     "dotenv": "^16.4.7",
+    "joi": "^17.13.3",
+    "node-fetch": "^3.3.2",
     "uuid": "^11.0.3"
   }
 }

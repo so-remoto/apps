@@ -1,3 +1,4 @@
+import { Data } from "@core/dist";
 import { Permissao } from "../model/Permissao";
 import { DevPerfil } from "./DevPerfil";
 
@@ -6,7 +7,7 @@ export interface GrupoDev {
     id: string;
     nome: DevPerfil
     descricao: string;    
-    dataCriacao: Date;
+    dataCriacao: Data;
     permissoes: Permissao[]
     ativo: boolean;
 }
