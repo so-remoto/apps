@@ -19,7 +19,7 @@ model Usuario {
   email          String    @unique
   senha          String
   dataCriacao    DateTime  @default(now())
-  ativo          Boolean
+  ativo          Boolean   @default(true)
   tokenRecuperar String? // Opcional
   tokenExpiracao DateTime? // Opcional
   telefone       String

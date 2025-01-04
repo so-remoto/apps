@@ -7,18 +7,22 @@ const repo = new PrismaClient();
 
 // Definindo um esquema de validação para Usuario
 const usuarioSchema = Joi.object({
-  nomeCompleto: Joi.string().required(),
+  nomeCompleto: Joi.string().min(3).required(),
   email: Joi.string().email().required(),
-  senha: Joi.string().min(6).required(),
-  telefone: Joi.string().required(),
+  senha: Joi.string()
+    .pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{5,30}$'))
+    .required(),
+  telefone: Joi.string()
+    .pattern(new RegExp('^[1-9][0-9]\\s?9[1-9][0-9]{7}$'))
+    .required(),
   imagem: Joi.string().uri().allow(null, ''),
   dataCriacao: Joi.date().optional(),
-  ativo: Joi.boolean().required(),
+  ativo: Joi.boolean().optional(),
   tokenRecuperar: Joi.string().optional().allow(null),
   tokenExpiracao: Joi.date().optional().allow(null),
   perfis: Joi.array().items(Joi.object({
-    id: Joi.string().required()
-  })).optional()
+        id: Joi.string().required()
+      })).optional()
 });
 
 const idSchema = Joi.string().guid({ version: 'uuidv4' }).required();
