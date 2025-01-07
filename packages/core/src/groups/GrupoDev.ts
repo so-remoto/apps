@@ -1,4 +1,4 @@
-import { Data } from "@core/dist";
+import Data from "../shared/Data";
 import { Permissao } from "../model/Permissao";
 import { DevPerfil } from "./DevPerfil";
 
