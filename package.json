@@ -19,5 +19,10 @@
     "joi": "^17.13.3",
     "node-fetch": "^3.3.2",
     "uuid": "^11.0.3"
-  }
+  },
+  "workspaces": [
+    "frontend/",
+    "backend/",
+    "packages/*"
+  ]
 }
