@@ -1,4 +1,32 @@
 GET http://localhost:3001/api/users
 
+
 ###
-POST http://localhost:3001/api/users
+POST  http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "nomeCompleto":"Novo 3",
+    "email":"test2@gmail.com", 
+    "senha":"Password12",
+    "telefone":"21 930485860"
+}
+
+
+###
+PUT  http://localhost:3001/api/users/6765de00-c590-4fe9-a71f-6031ee227e3a
+Content-Type: application/json
+
+{
+    "nomeCompleto":"Novo 3",
+    "email":"test2@gmail.com", 
+    "senha":"Password1234",
+    "telefone":"21958403750",
+    "ativo":false
+}
+
+###
+GET http://localhost:3001/api/users/6765de00-c590-4fe9-a71f-6031ee227e3a
+
+###
+DELETE http://localhost:3001/api/users/6765de00-c590-4fe9-a71f-6031ee227e3a
