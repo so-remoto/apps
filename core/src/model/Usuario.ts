@@ -5,10 +5,10 @@ export interface Usuario {
     nomeCompleto: string
     email: string
     senha:string
-    dataCriacao?: Date
+    dataCriacao?: string | Date
     ativo: boolean
-    tokenRecuperar?: string
-    tokenExpiracao?: string
+    tokenRecuperar?: string | null
+    tokenExpiracao?: string | Date
     telefone: string
     imagem?: string
     perfis: Perfil[]

@@ -6,7 +6,12 @@
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "tsc --project tsconfig.json",
+    "clean:core": "powershell -Command \"if (Test-Path ..\\core\\dist) { Remove-Item -Recurse -Force ..\\core\\dist }\"",
+    "clean:backend": "powershell -Command \"if (Test-Path .\\dist) { Remove-Item -Recurse -Force .\\dist }\"",
+    "build:core": "powershell -Command \"npx tsc --build ..\\core\"",
+    "build:backend": "powershell -Command \"npx tsc --build .\"",
+    "clean": "npm run clean:core && npm run clean:backend",
+    "build": "npm run build:core && npm run build:backend",
     "build:test": "tsc --project tsconfig.test.json"
   },
   "keywords": [],

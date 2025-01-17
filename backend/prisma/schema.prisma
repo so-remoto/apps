@@ -7,54 +7,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum DevPerfil {
-  Junior
-  Pleno
-  Senior
-}
-
 model Usuario {
-  id             String    @id @default(uuid())
+  id             String          @id @default(uuid())
   nomeCompleto   String
-  email          String    @unique
+  email          String          @unique
   senha          String
-  dataCriacao    DateTime  @default(now())
+  dataCriacao    DateTime        @default(now())
   ativo          Boolean
-  tokenRecuperar String? // Opcional
-  tokenExpiracao DateTime? // Opcional
+  tokenRecuperar String?
+  tokenExpiracao DateTime?
   telefone       String
   imagem         String?
-  perfis         Perfil[]  @relation("UsuarioPerfis")
+  perfis         UsuarioPerfil[]
 }
 
 model Perfil {
-  id          String      @id @default(uuid())
+  id          String          @id @default(uuid())
   nome        String
   descricao   String
-  dataCriacao DateTime    @default(now())
+  dataCriacao DateTime        @default(now())
   ativo       Boolean
-  permissoes  Permissao[] @relation("PerfilPermissoes")
-  grupoId     String
-  grupo       GrupoDev    @relation(fields: [grupoId], references: [id])
-  usuarios    Usuario[]   @relation("UsuarioPerfis")
+  permissoes  Permissao[]     @relation("PerfilPermissoes")
+  usuarios    UsuarioPerfil[]
 }
 
 model Permissao {
-  id          String     @id @default(uuid())
+  id          String   @id @default(uuid())
   nome        String
   descricao   String
-  dataCriacao DateTime   @default(now())
+  dataCriacao DateTime @default(now())
   ativo       Boolean
-  perfis      Perfil[]   @relation("PerfilPermissoes")
-  grupos      GrupoDev[]
+  perfis      Perfil[] @relation("PerfilPermissoes")
 }
 
-model GrupoDev {
-  id          String      @id @default(uuid())
-  nome        DevPerfil
-  descricao   String
-  dataCriacao DateTime    @default(now())
-  ativo       Boolean
-  permissoes  Permissao[]
-  perfis      Perfil[]
+model UsuarioPerfil {
+  id        String  @id @default(uuid())
+  usuarioId String
+  perfilId  String
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  perfil    Perfil  @relation(fields: [perfilId], references: [id])
 }

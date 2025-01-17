@@ -8,16 +8,14 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "types": ["jest"],
+    "composite": true,
+    "declaration": true,
+    "declarationDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@core/*": ["../../core/dist/*"],
-      "@shared/*": ["../../core/dist/shared/*"]
+      "@shared/*": ["./shared/*"]
     }
   },
-  "include": ["src/**/*", "../../core/dist/**/*"],
-  "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "../core" }
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
