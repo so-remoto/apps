@@ -48,74 +48,8 @@ const perfilSchema = Joi.object({
   })).required()
 });
 const idSchema = Joi.string().required();
-export const criarPermissoes = async (permissoes: Permissao[]): Promise<Permissao[]> => {
-  const permissoesCriadas: Permissao[] = [];
-  for (const permissao of permissoes) {
-    const permissaoExistente = await db.permissao.findUnique({ where: { id: permissao.id } });
-    if (!permissaoExistente) {
-      const dataCriacao = typeof permissao.dataCriacao === 'string' 
-        ? new Date(DataMaster.desformatar(permissao.dataCriacao)).toISOString()
-        : permissao.dataCriacao instanceof Date
-          ? permissao.dataCriacao.toISOString()
-          : new Date().toISOString();
-      
-      const novaPermissao = await db.permissao.create({
-        data: {
-          id: uuidv4(),
-          nome: permissao.nome,
-          descricao: permissao.descricao,
-          dataCriacao: dataCriacao,
-          ativo: permissao.ativo
-        }
-      });
-      permissoesCriadas.push({
-        ...novaPermissao,
-        dataCriacao: novaPermissao.dataCriacao.toString()
-      } as Permissao);
-    } else {
-      permissoesCriadas.push({
-        ...permissaoExistente,
-        dataCriacao: permissaoExistente.dataCriacao.toString()
-      } as Permissao);
-    }
-  }
-  return permissoesCriadas;
-};
-export const criarPerfil = async (perfil: Perfil): Promise<Perfil> => {
-  const { error } = perfilSchema.validate(perfil);
-  if (error) {
-    throw new Error(`Erro de validação do perfil: ${error.details.map(x => x.message).join(', ')}`);
-  }
-  const permissoes = await criarPermissoes(perfil.permissoes);
-  const dataCriacao = typeof perfil.dataCriacao === 'string' 
-    ? new Date(DataMaster.desformatar(perfil.dataCriacao)).toISOString()
-    : perfil.dataCriacao instanceof Date
-      ? perfil.dataCriacao.toISOString()
-      : new Date().toISOString();
-  const perfilCriado = await db.perfil.create({
-    data: {
-      id: uuidv4(),
-      nome: perfil.nome,
-      descricao: perfil.descricao,
-      dataCriacao: dataCriacao,
-      ativo: perfil.ativo,
-      permissoes: {
-        connect: permissoes.map((permissao: Permissao) => ({ id: permissao.id }))
-      }
-    },
-    include: {
-      permissoes: true
-    }
-  });
-  return {
-    ...perfilCriado,
-    dataCriacao: perfilCriado.dataCriacao.toString(),
-    permissoes: perfilCriado.permissoes.map((permissao: Permissao) => ({
-      ...permissao,
-      dataCriacao: permissao.dataCriacao.toString()
-    }))
-  } as Perfil;
-};
+
+
 export const criarUsuario = async (usuario: Usuario): Promise<Usuario> => {
   try {
     const { error } = usuarioSchema.validate(usuario);
@@ -284,52 +218,14 @@ export const atualizarUsuario = async (id: string, dadosAtualizados: Partial<Usu
     throw new Error("Erro ao atualizar usuário: " + (error instanceof Error ? error.message : 'Erro desconhecido'));
   }
 };
+
 export const deletarUsuario = async (id: string): Promise<void> => {
   await db.usuario.delete({ where: { id } });
   await db.usuarioPerfil.deleteMany({ where: { usuarioId: id } });
 };
-export const criarPerfilComPermissoes = async (perfil: Perfil): Promise<Perfil> => {
-  try {
-    const permissoesCriadas = await criarPermissoes(perfil.permissoes);
-    
-    const dataCriacao = typeof perfil.dataCriacao === 'string' 
-      ? new Date(DataMaster.desformatar(perfil.dataCriacao)).toISOString()
-      : perfil.dataCriacao instanceof Date
-        ? perfil.dataCriacao.toISOString()
-        : new Date().toISOString();
-    
-    const perfilCriado = await db.perfil.create({
-      data: {
-        id: uuidv4(),
-        nome: perfil.nome,
-        descricao: perfil.descricao,
-        dataCriacao: dataCriacao,
-        ativo: perfil.ativo,
-        permissoes: {
-          connect: permissoesCriadas.map((permissao: Permissao) => ({ id: permissao.id }))
-        }
-      },
-      include: {
-        permissoes: true
-      }
-    });
-    return {
-      ...perfilCriado,
-      dataCriacao: perfilCriado.dataCriacao instanceof Date 
-        ? perfilCriado.dataCriacao.toISOString() 
-        : perfilCriado.dataCriacao,
-      permissoes: perfilCriado.permissoes.map((permissao: Permissao) => ({
-        ...permissao,
-        dataCriacao: permissao.dataCriacao instanceof Date 
-          ? permissao.dataCriacao.toISOString() 
-          : permissao.dataCriacao
-      }))
-    } as Perfil;
-  } catch (error) {
-    console.error('Erro ao criar perfil com permissões:', error);
-    throw new Error("Erro ao criar perfil com permissões: " + (error instanceof Error ? error.message : 'Erro desconhecido'));
-  }
-};
+
+
+
 export const obterUsuarios = async (): Promise<Usuario[]> => {
   try {
     const usuarios = await db.usuario.findMany({
