@@ -1,0 +1,206 @@
+
+###
+GET http://localhost:3001/api/users
+
+###
+GET http://localhost:3001/api/users/f96e97de-6fe4-4bd0-9138-8594876d1c19
+
+###
+PUT  http://localhost:3001/api/users/a967c955-d35b-4817-b04a-e2f1aa2e41b5
+Content-Type: application/json
+
+{
+  "nomeCompleto": "Tiago kelis da silva",
+  "email": "tiaguinho_@example.com",
+  "senha": "senha_segura789",
+  "dataCriacao": "2025-01-20T03:00:00Z",
+  "ativo": true,
+  "tokenRecuperar": null,
+  "tokenExpiracao": null,
+  "telefone": "+55 31 91234-5678",
+  "imagem": "https://example.com/imagens/carlos_souza.jpg",
+  "perfis": [
+    {
+      "nome": "Desenvolvedor",
+      "descricao": "Perfil de desenvolvedor com acesso ao código-fonte",
+      "dataCriacao": "2025-01-20T03:00:00Z",
+      "ativo": true,
+      "permissoes": [
+        {
+          "nome": "Permissão de Leitura de Código",
+          "descricao": "Permissão para ler código-fonte",
+          "dataCriacao": "2025-01-20T03:00:00Z",
+          "ativo": true
+        },
+        {
+          "nome": "Permissão de Commit",
+          "descricao": "Permissão para fazer commits",
+          "dataCriacao": "2025-01-20T03:00:00Z",
+          "ativo": true
+        }
+      ]
+    }
+  ]
+}
+
+
+###
+DELETE http://localhost:3001/api/users/61638861-ed47-448b-84e5-ac6ec398c9ff
+
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "nomeCompleto": "João da Silva",
+  "email": "jozinho.silva@example.com",
+  "senha": "senha_segura123",
+  "dataCriacao": "2025-01-18T03:00:00Z",
+  "ativo": true,
+  "tokenRecuperar": null,
+  "tokenExpiracao": null,
+  "telefone": "+55 11 91234-5678",
+  "imagem": "https://example.com/imagens/joao_silva.jpg",
+  "perfis": [
+    {
+      "nome": "Administrador",
+      "descricao": "Perfil de administrador com acesso completo",
+      "dataCriacao": "2025-01-18T03:00:00Z",
+      "ativo": true,
+      "permissoes": [
+        {
+          "nome": "Permissão de Leitura",
+          "descricao": "Permissão para ler dados",
+          "dataCriacao": "2025-01-18T03:00:00Z",
+          "ativo": true
+        },
+        {
+          "nome": "Permissão de Escrita",
+          "descricao": "Permissão para escrever dados",
+          "dataCriacao": "2025-01-18T03:00:00Z",
+          "ativo": true
+        }
+      ]
+    }
+  ]
+}
+
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "nomeCompleto": "Ana Lima",
+  "email": "ana.lima@example.com",
+  "senha": "senha_segura101",
+  "dataCriacao": "2025-01-21T03:00:00Z",
+  "ativo": true,
+  "tokenRecuperar": null,
+  "tokenExpiracao": null,
+  "telefone": "+55 41 92345-6789",
+  "imagem": "https://example.com/imagens/ana_lima.jpg",
+  "perfis": [
+    {
+      "nome": "Analista",
+      "descricao": "Perfil de analista com acesso a dados",
+      "dataCriacao": "2025-01-21T03:00:00Z",
+      "ativo": true,
+      "permissoes": [
+        {
+          "nome": "Permissão de Consulta",
+          "descricao": "Permissão para consultar dados",
+          "dataCriacao": "2025-01-21T03:00:00Z",
+          "ativo": true
+        },
+        {
+          "nome": "Permissão de Exportação",
+          "descricao": "Permissão para exportar dados",
+          "dataCriacao": "2025-01-21T03:00:00Z",
+          "ativo": true
+        }
+      ]
+    }
+  ]
+}
+
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "nomeCompleto": "Felipe Andrade",
+  "email": "felipe.andrade@example.com",
+  "senha": "senha_segura202",
+  "dataCriacao": "2025-01-22T03:00:00Z",
+  "ativo": true,
+  "tokenRecuperar": null,
+  "tokenExpiracao": null,
+  "telefone": "+55 51 93456-7890",
+  "imagem": "https://example.com/imagens/felipe_andrade.jpg",
+  "perfis": [
+    {
+      "nome": "Suporte",
+      "descricao": "Perfil de suporte com acesso a tickets",
+      "dataCriacao": "2025-01-22T03:00:00Z",
+      "ativo": true,
+      "permissoes": [
+        {
+          "nome": "Permissão de Visualização de Tickets",
+          "descricao": "Permissão para visualizar tickets",
+          "dataCriacao": "2025-01-22T03:00:00Z",
+          "ativo": true
+        },
+        {
+          "nome": "Permissão de Resolução de Tickets",
+          "descricao": "Permissão para resolver tickets",
+          "dataCriacao": "2025-01-22T03:00:00Z",
+          "ativo": true
+        }
+      ]
+    }
+  ]
+}
+
+
+###
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+  "nomeCompleto": "Tiago kelis",
+  "email": "tiaguinho_@example.com",
+  "senha": "senha_segura789",
+  "dataCriacao": "2025-01-20T03:00:00Z",
+  "ativo": true,
+  "tokenRecuperar": null,
+  "tokenExpiracao": null,
+  "telefone": "+55 31 91234-5678",
+  "imagem": "https://example.com/imagens/carlos_souza.jpg",
+  "perfis": [
+    {
+      "nome": "Desenvolvedor",
+      "descricao": "Perfil de desenvolvedor com acesso ao código-fonte",
+      "dataCriacao": "2025-01-20T03:00:00Z",
+      "ativo": true,
+      "permissoes": [
+        {
+          "nome": "Permissão de Leitura de Código",
+          "descricao": "Permissão para ler código-fonte",
+          "dataCriacao": "2025-01-20T03:00:00Z",
+          "ativo": true
+        },
+        {
+          "nome": "Permissão de Commit",
+          "descricao": "Permissão para fazer commits",
+          "dataCriacao": "2025-01-20T03:00:00Z",
+          "ativo": true
+        }
+      ]
+    }
+  ]
+}
+
+

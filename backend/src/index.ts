@@ -20,7 +20,6 @@ app.get('/', (req: Request, res: Response) => {
 
 // Usa o roteador para as rotas de usuário
 app.use('/api', userRoutes);
-
 app.listen(port, () => {
   console.log(`Servidor backend rodando em http://localhost:${port}`);
 });

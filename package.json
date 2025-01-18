@@ -8,13 +8,16 @@
     "dev-package": "cd core && npm run dev",
     "build-frontend": "cd frontend && npm run build",
     "build-backend": "cd backend && npm run build",
-    "build-core": "cd core && npm run build", 
+    "build-core": "cd core && npm run build",
     "build": "concurrently \"npm run build-frontend\" \"npm run build-backend\" \"npm run build-core\""
   },
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "@types/node": "^22.10.7",
+    "concurrently": "^9.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
   },
-  "dependencies": {    
+  "dependencies": {
     "dotenv": "^16.4.7",
     "joi": "^17.13.3",
     "node-fetch": "^3.3.2",

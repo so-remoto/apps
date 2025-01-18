@@ -1,0 +1,58 @@
+
+###
+GET http://localhost:3001/api/profiles
+
+###
+POST http://localhost:3001/api/profiles
+Content-Type: application/json
+{
+  "nome": "Administrador",
+  "descricao": "Perfil de administrador com acesso completo",
+  "dataCriacao": "2025-01-18T03:00:00Z",
+  "ativo": true,
+  "permissoes": [
+    {
+      "nome": "Permissão de Leitura",
+      "descricao": "Permissão para ler dados",
+      "dataCriacao": "2025-01-18T03:00:00Z",
+      "ativo": true
+    },
+    {
+      "nome": "Permissão de Escrita",
+      "descricao": "Permissão para escrever dados",
+      "dataCriacao": "2025-01-18T03:00:00Z",
+      "ativo": true
+    }
+  ]
+}
+
+###
+GET http://localhost:3001/api/profiles/9187fa43-1907-4559-a6ca-ef3b7764438e
+
+###
+DELETE http://localhost:3001/api/profiles/9187fa43-1907-4559-a6ca-ef3b7764438e
+
+###
+PUT http://localhost:3001/api/profiles/609fc064-8b20-42ce-b9c8-e03b6fa08d98
+Content-Type: application/json
+
+{
+  "nome": "TecLead",
+  "descricao": "Perfil de administrador com acesso completo",
+  "dataCriacao": "2025-01-18T03:00:00Z",
+  "ativo": true,
+  "permissoes": [
+    {
+      "nome": "Permissão de Leitura",
+      "descricao": "Permissão para ler dados",
+      "dataCriacao": "2025-01-18T03:00:00Z",
+      "ativo": true
+    },
+    {
+      "nome": "Permissão de Escrita",
+      "descricao": "Permissão para escrever dados",
+      "dataCriacao": "2025-01-18T03:00:00Z",
+      "ativo": true
+    }
+  ]
+}

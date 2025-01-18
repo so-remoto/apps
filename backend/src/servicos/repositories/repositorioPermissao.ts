@@ -3,40 +3,116 @@ import DataMaster from "core/src/shared/Data"; // Caminho relativo ao diretório
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaClient } from "@prisma/client";
 
-
 const db = new PrismaClient();
 
 export const criarPermissoes = async (permissoes: Permissao[]): Promise<Permissao[]> => {
-    const permissoesCriadas: Permissao[] = [];
-    for (const permissao of permissoes) {
-      const permissaoExistente = await db.permissao.findUnique({ where: { id: permissao.id } });
-      if (!permissaoExistente) {
-        const dataCriacao = typeof permissao.dataCriacao === 'string' 
-          ? new Date(DataMaster.desformatar(permissao.dataCriacao)).toISOString()
-          : permissao.dataCriacao instanceof Date
-            ? permissao.dataCriacao.toISOString()
-            : new Date().toISOString();
-        
-        const novaPermissao = await db.permissao.create({
-          data: {
-            id: uuidv4(),
-            nome: permissao.nome,
-            descricao: permissao.descricao,
-            dataCriacao: dataCriacao,
-            ativo: permissao.ativo
-          }
-        });
-        permissoesCriadas.push({
-          ...novaPermissao,
-          dataCriacao: novaPermissao.dataCriacao.toString()
-        } as Permissao);
-      } else {
-        permissoesCriadas.push({
-          ...permissaoExistente,
-          dataCriacao: permissaoExistente.dataCriacao.toString()
-        } as Permissao);
-      }
-    }
-    return permissoesCriadas;
-  };
+  console.log("Permissões recebidas:", permissoes); // Adicione este log
+
+  if (!Array.isArray(permissoes)) {
+    throw new TypeError("permissoes is not iterable");
+  }
+
+  const permissoesCriadas: Permissao[] = [];
   
+  for (const permissao of permissoes) {
+    const permissaoExistente = await db.permissao.findUnique({ where: { id: permissao.id } });
+    
+    if (!permissaoExistente) {
+      const dataCriacao = typeof permissao.dataCriacao === 'string' 
+        ? new Date(DataMaster.desformatar(permissao.dataCriacao)).toISOString()
+        : permissao.dataCriacao instanceof Date
+          ? permissao.dataCriacao.toISOString()
+          : new Date().toISOString();
+      
+      const novaPermissao = await db.permissao.create({
+        data: {
+          id: uuidv4(),
+          nome: permissao.nome,
+          descricao: permissao.descricao,
+          dataCriacao: dataCriacao,
+          ativo: permissao.ativo
+        }
+      });
+      permissoesCriadas.push({
+        ...novaPermissao,
+        dataCriacao: novaPermissao.dataCriacao.toString()
+      } as Permissao);
+    } else {
+      permissoesCriadas.push({
+        ...permissaoExistente,
+        dataCriacao: permissaoExistente.dataCriacao.toString()
+      } as Permissao);
+    }
+  }
+  
+  return permissoesCriadas;
+};
+
+export const atualizarPermissao = async (id: string, dadosAtualizados: Permissao): Promise<Permissao> => {
+  const permissaoAtualizada = await db.permissao.update({
+    where: { id: id },
+    data: {
+      nome: dadosAtualizados.nome,
+      descricao: dadosAtualizados.descricao,
+      dataCriacao: dadosAtualizados.dataCriacao
+        ? (typeof dadosAtualizados.dataCriacao === 'string'
+            ? dadosAtualizados.dataCriacao
+            : dadosAtualizados.dataCriacao.toISOString())
+        : new Date().toISOString(),
+      ativo: dadosAtualizados.ativo
+    }
+  });
+
+  return {
+    ...permissaoAtualizada,
+    dataCriacao: permissaoAtualizada.dataCriacao.toString()
+  } as Permissao;
+};
+
+export const deletarPermissao = async (id: string): Promise<void> => {
+  try {
+    await db.permissao.delete({
+      where: { id: id }
+    });
+  } catch (error) {
+    console.error('Erro ao deletar permissão:', error);
+    throw new Error("Erro ao deletar permissão: " + (error instanceof Error ? error.message : 'Erro desconhecido'));
+  }
+};
+
+export const buscarTodasPermissoes = async (): Promise<Permissao[]> => {
+  try {
+    const permissoes = await db.permissao.findMany();
+    return permissoes.map(permissao => ({
+      ...permissao,
+      dataCriacao: permissao.dataCriacao instanceof Date
+        ? permissao.dataCriacao.toISOString()
+        : permissao.dataCriacao
+    })) as Permissao[];
+  } catch (error) {
+    console.error('Erro ao buscar permissões:', error);
+    throw new Error("Erro ao buscar permissões: " + (error instanceof Error ? error.message : 'Erro desconhecido'));
+  }
+};
+
+export const buscarPermissaoPorId = async (id: string): Promise<Permissao | null> => {
+  try {
+    const permissao = await db.permissao.findUnique({
+      where: { id: id }
+    });
+
+    if (permissao) {
+      return {
+        ...permissao,
+        dataCriacao: permissao.dataCriacao instanceof Date
+          ? permissao.dataCriacao.toISOString()
+          : permissao.dataCriacao
+      } as Permissao;
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Erro ao buscar permissão por ID:', error);
+    throw new Error("Erro ao buscar permissão por ID: " + (error instanceof Error ? error.message : 'Erro desconhecido'));
+  }
+};
