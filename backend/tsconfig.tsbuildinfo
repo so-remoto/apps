@@ -1,1 +1,0 @@
-{"root":["./src/index.ts","./src/servicos/controllers/usecontroller.ts","./src/servicos/repositories/repositoriousuario.ts","./src/servicos/routes/userroutes.ts"],"errors":true,"version":"5.7.3"}

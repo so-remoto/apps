@@ -1,7 +1,7 @@
 
 import { PrismaClient } from "@prisma/client";
-import { Usuario, Perfil, Permissao } from "../../../../core/src/index"; // Caminho relativo ao diretório atual
-import DataMaster from "../../../../core/src/shared/Data"; // Caminho relativo ao diretório atual
+import { Usuario, Perfil, Permissao } from "core/src/index"; // Caminho relativo ao diretório atual
+import DataMaster from "core/src/shared/Data"; // Caminho relativo ao diretório atual
 import Joi from 'joi';
 
 import { v4 as uuidv4 } from 'uuid';

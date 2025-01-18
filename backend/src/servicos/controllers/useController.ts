@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { obterUsuarios, obterUsuarioPorId, criarUsuario, atualizarUsuario, deletarUsuario, criarPerfilComPermissoes } from "../repositories/repositorioUsuario";
+import { obterUsuarios, obterUsuarioPorId, criarUsuario, atualizarUsuario, deletarUsuario } from "../repositories/repositorioUsuario";
+import { criarPerfilComPermissoes } from "../repositories/repositorioPerfil";
 const convertDateToString = (date: Date | string | undefined): string | undefined => {
   return date instanceof Date ? date.toISOString() : date;
 };

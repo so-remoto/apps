@@ -2,7 +2,7 @@
   "name": "core",
   "version": "1.0.0",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "clean": "powershell -Command \"if (Test-Path ./dist) { Remove-Item -Recurse -Force ./dist }\"",
