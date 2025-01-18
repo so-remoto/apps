@@ -33,6 +33,7 @@ const usuarioSchema = Joi.object({
     })).required()
   })).optional()
 });
+
 const perfilSchema = Joi.object({
   id: Joi.string().optional(),
   nome: Joi.string().required(),
@@ -47,6 +48,7 @@ const perfilSchema = Joi.object({
     ativo: Joi.boolean().required()
   })).required()
 });
+
 const idSchema = Joi.string().required();
 
 
@@ -223,8 +225,6 @@ export const deletarUsuario = async (id: string): Promise<void> => {
   await db.usuario.delete({ where: { id } });
   await db.usuarioPerfil.deleteMany({ where: { usuarioId: id } });
 };
-
-
 
 export const obterUsuarios = async (): Promise<Usuario[]> => {
   try {
