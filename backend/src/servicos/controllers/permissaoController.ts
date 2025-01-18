@@ -34,17 +34,26 @@ export const getPermissaoById = async (req: Request, res: Response): Promise<voi
 
 export const createPermissao = async (req: Request, res: Response): Promise<void> => {
   try {
-    const permissao = await criarPermissoes(req.body);
-    res.status(201).json(permissao);
+    const { permissoes } = req.body;
+
+    if (!Array.isArray(permissoes)) {
+      res.status(400).json({
+        error: 'Formato inválido',
+        details: 'O corpo da requisição deve conter um array de permissões.'
+      });
+      return;
+    }
+
+    const permissoesCriadas = await criarPermissoes(permissoes);
+    res.status(201).json(permissoesCriadas);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({ error: 'Erro ao criar permissão', details: error.message });
+      res.status(500).json({ error: 'Erro ao criar permissões', details: error.message });
     } else {
-      res.status(500).json({ error: 'Erro ao criar permissão', details: 'Erro desconhecido' });
+      res.status(500).json({ error: 'Erro ao criar permissões', details: 'Erro desconhecido' });
     }
   }
 };
-
 export const updatePermissao = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
@@ -73,6 +82,3 @@ export const deletePermissao = async (req: Request, res: Response): Promise<void
     }
   }
 };
-
-
-

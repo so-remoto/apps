@@ -1,0 +1,38 @@
+
+
+###
+GET http://localhost:3001/api/permissions
+
+###
+GET http://localhost:3001/api/permissions/9b1f3b04-284a-49c0-8baf-5685e41b0fc3
+
+###
+POST http://localhost:3001/api/permissions
+Content-Type: application/json
+
+{
+  "permissoes": [
+    {
+      "nome": "Sênior",
+      "descricao": "Acesso total ao sistema",
+      "dataCriacao": "2025-01-18T11:21:00Z",
+      "ativo": true
+    }
+  ]
+}
+
+
+
+###
+DELETE http://localhost:3001/api/permissions/852847ab-3fd6-46a0-9435-421d1ceb46e4
+
+###
+PUT http://localhost:3001/api/permissions/2bb36035-1b61-4169-8655-69c14dcb75c8
+Content-Type: application/json
+
+{
+  "nome": "Sênior Atualizado",
+  "descricao": "Acesso total atualizado",
+  "dataCriacao": "2025-01-18T11:21:00Z",
+  "ativo": true
+}
