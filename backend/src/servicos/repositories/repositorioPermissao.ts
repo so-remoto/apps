@@ -83,7 +83,7 @@ export const deletarPermissao = async (id: string): Promise<void> => {
 export const buscarTodasPermissoes = async (): Promise<Permissao[]> => {
   try {
     const permissoes = await db.permissao.findMany();
-    return permissoes.map(permissao => ({
+    return permissoes.map((permissao: Permissao) => ({
       ...permissao,
       dataCriacao: permissao.dataCriacao instanceof Date
         ? permissao.dataCriacao.toISOString()

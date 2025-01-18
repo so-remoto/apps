@@ -54,36 +54,11 @@ Content-Type: application/json
 
 {
   "nomeCompleto": "João da Silva",
-  "email": "jozinho.silva@example.com",
+  "email": "jozinasf.silva@example.com",
   "senha": "senha_segura123",
-  "dataCriacao": "2025-01-18T03:00:00Z",
-  "ativo": true,
-  "tokenRecuperar": null,
-  "tokenExpiracao": null,
   "telefone": "+55 11 91234-5678",
   "imagem": "https://example.com/imagens/joao_silva.jpg",
-  "perfis": [
-    {
-      "nome": "Administrador",
-      "descricao": "Perfil de administrador com acesso completo",
-      "dataCriacao": "2025-01-18T03:00:00Z",
-      "ativo": true,
-      "permissoes": [
-        {
-          "nome": "Permissão de Leitura",
-          "descricao": "Permissão para ler dados",
-          "dataCriacao": "2025-01-18T03:00:00Z",
-          "ativo": true
-        },
-        {
-          "nome": "Permissão de Escrita",
-          "descricao": "Permissão para escrever dados",
-          "dataCriacao": "2025-01-18T03:00:00Z",
-          "ativo": true
-        }
-      ]
-    }
-  ]
+  "perfis": []
 }
 
 
