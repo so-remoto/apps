@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import { Perfil, Permissao } from "core/src/index"; 
-import DataMaster from "core/src/shared/Data"; 
+import { Perfil, Permissao } from "core/src/index";
+import DataMaster from "core/src/shared/Data";
 import { v4 as uuidv4 } from 'uuid';
 import Joi from "joi";
 import { criarPermissoes } from "./repositorioPermissao";
@@ -24,14 +24,13 @@ const perfilSchema = Joi.object({
 
 export const criarPerfilComPermissoes = async (perfil: Perfil): Promise<Perfil> => {
   try {
-    // Adicione IDs usando uuid se não estiverem presentes
     perfil.id = perfil.id || uuidv4();
-    perfil.permissoes.forEach(permissao => {
+    perfil.permissoes.forEach((permissao: Permissao) => {
       permissao.id = permissao.id || uuidv4();
     });
 
     const permissoesCriadas = await criarPermissoes(perfil.permissoes);
-    const dataCriacao = typeof perfil.dataCriacao === 'string' 
+    const dataCriacao = typeof perfil.dataCriacao === 'string'
       ? new Date(DataMaster.desformatar(perfil.dataCriacao)).toISOString()
       : perfil.dataCriacao instanceof Date
         ? perfil.dataCriacao.toISOString()
@@ -54,13 +53,13 @@ export const criarPerfilComPermissoes = async (perfil: Perfil): Promise<Perfil> 
     });
     return {
       ...perfilCriado,
-      dataCriacao: perfilCriado.dataCriacao instanceof Date 
-        ? perfilCriado.dataCriacao.toISOString() 
+      dataCriacao: perfilCriado.dataCriacao instanceof Date
+        ? perfilCriado.dataCriacao.toISOString()
         : perfilCriado.dataCriacao,
       permissoes: perfilCriado.permissoes.map((permissao: Permissao) => ({
         ...permissao,
-        dataCriacao: permissao.dataCriacao instanceof Date 
-          ? permissao.dataCriacao.toISOString() 
+        dataCriacao: permissao.dataCriacao instanceof Date
+          ? permissao.dataCriacao.toISOString()
           : permissao.dataCriacao
       }))
     } as Perfil;
@@ -81,17 +80,15 @@ export const atualizarPerfil = async (id: string, dadosAtualizados: Perfil): Pro
       throw new Error("Perfil não encontrado");
     }
 
-    // Desconectar permissões antigas
     await db.perfil.update({
       where: { id: id },
       data: {
         permissoes: {
-          disconnect: perfilExistente.permissoes.map(permissao => ({ id: permissao.id }))
+          disconnect: perfilExistente.permissoes.map((permissao: Permissao) => ({ id: permissao.id }))
         }
       }
     });
 
-    // Verificar e criar permissões se necessário
     const permissoesAtualizadas = [];
     for (const permissao of dadosAtualizados.permissoes) {
       let permissaoExistente;
@@ -121,7 +118,6 @@ export const atualizarPerfil = async (id: string, dadosAtualizados: Perfil): Pro
       }
     }
 
-    // Atualização do perfil com novas permissões
     const perfilAtualizado = await db.perfil.update({
       where: { id: id },
       data: {
@@ -143,7 +139,7 @@ export const atualizarPerfil = async (id: string, dadosAtualizados: Perfil): Pro
     return {
       ...perfilAtualizado,
       dataCriacao: perfilAtualizado.dataCriacao.toString(),
-      permissoes: perfilAtualizado.permissoes.map(permissao => ({
+      permissoes: perfilAtualizado.permissoes.map((permissao: Permissao) => ({
         ...permissao,
         dataCriacao: permissao.dataCriacao.toString()
       }))
@@ -156,12 +152,10 @@ export const atualizarPerfil = async (id: string, dadosAtualizados: Perfil): Pro
 
 export const deletarPerfil = async (id: string): Promise<void> => {
   try {
-    // Deletar associações de perfis do usuário na tabela intermediária
     await db.usuarioPerfil.deleteMany({
       where: { perfilId: id }
     });
 
-    // Deletar o perfil
     await db.perfil.delete({
       where: { id: id }
     });
@@ -171,7 +165,6 @@ export const deletarPerfil = async (id: string): Promise<void> => {
   }
 };
 
-
 export const buscarTodosPerfis = async (): Promise<Perfil[]> => {
   try {
     const perfis = await db.perfil.findMany({
@@ -180,10 +173,10 @@ export const buscarTodosPerfis = async (): Promise<Perfil[]> => {
       }
     });
 
-    return perfis.map(perfil => ({
+    return perfis.map((perfil: Perfil) => ({
       ...perfil,
       dataCriacao: perfil.dataCriacao.toString(),
-      permissoes: perfil.permissoes.map(permissao => ({
+      permissoes: perfil.permissoes.map((permissao: Permissao) => ({
         ...permissao,
         dataCriacao: permissao.dataCriacao.toString()
       }))
@@ -207,7 +200,7 @@ export const buscarPerfilPorId = async (id: string): Promise<Perfil | null> => {
       return {
         ...perfil,
         dataCriacao: perfil.dataCriacao.toString(),
-        permissoes: perfil.permissoes.map(permissao => ({
+        permissoes: perfil.permissoes.map((permissao: Permissao) => ({
           ...permissao,
           dataCriacao: permissao.dataCriacao.toString()
         }))

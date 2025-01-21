@@ -1,9 +1,11 @@
-import { Permissao } from "core/src/index"; // Caminho relativo ao diretório atual
-import DataMaster from "core/src/shared/Data"; // Caminho relativo ao diretório atual
+import { Permissao } from "../../../../core/src/index"; // Certifique-se de que o caminho está correto
+import DataMaster from "../../../../core/src/shared/Data";
 import { v4 as uuidv4 } from 'uuid';
 import { PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();
+
+// Ajuste os tipos dos parâmetros nas funções
 
 export const criarPermissoes = async (permissoes: Permissao[]): Promise<Permissao[]> => {
   console.log("Permissões recebidas:", permissoes);
@@ -77,11 +79,10 @@ export const atualizarPermissao = async (id: string, dadosAtualizados: Permissao
   }
 };
 
-
 export const buscarTodasPermissoes = async (): Promise<Permissao[]> => {
   try {
     const permissoes = await db.permissao.findMany();
-    return permissoes.map(permissao => ({
+    return permissoes.map((permissao: Permissao) => ({
       ...permissao,
       dataCriacao: permissao.dataCriacao instanceof Date
         ? permissao.dataCriacao.toISOString()
