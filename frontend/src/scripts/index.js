@@ -54,7 +54,7 @@ registerForm.addEventListener('submit', async (e) => {
   e.preventDefault()
   nomeCompleto = e.target.name.value
   email = e.target.name.value
-  senha = e.target.name.value
+  senha = e.target.senha.value
 
   const userData = { nomeCompleto, email, senha }
 
