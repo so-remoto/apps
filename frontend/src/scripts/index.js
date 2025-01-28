@@ -52,7 +52,7 @@ loginForm.addEventListener('submit', async (e) => {
 
 registerForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-  nomeCompleto = e.target.name.value
+  nomeCompleto = e.target.nome.value
   email = e.target.email.value
   senha = e.target.senha.value
 
