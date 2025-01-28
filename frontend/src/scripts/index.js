@@ -23,7 +23,7 @@ showLoginScreen()
 
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault()
-  email = e.target.name.value
+  email = e.target.email.value
   senha = e.target.name.value
 
   const userData = { email, senha }
