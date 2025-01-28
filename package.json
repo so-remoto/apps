@@ -3,18 +3,22 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently \"npm run dev-frontend\" \"npm run dev-backend\" \"npm run dev-package\", tsup src/index.ts --dts --watch --ignore-watch dist",
-    "dev-frontend": "cd frontend && npm run dev",
+    "dev-frontend": "wait-on http://localhost:3001 && live-server frontend/ --port=3000",
     "dev-backend": "cd backend && npm run dev",
-    "dev-package": "cd packages/core && npm run dev",
-    "build-frontend": "cd frontend && npm run build",
+    "dev-package": "cd core && npm run dev",
+    "build-frontend": "echo 'No build step for static frontend",
     "build-backend": "cd backend && npm run build",
-    "build-core": "cd packages/core && npm run build", 
+    "build-core": "cd core && npm run build",
     "build": "concurrently \"npm run build-frontend\" \"npm run build-backend\" \"npm run build-core\""
   },
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "@types/node": "^22.10.7",
+    "concurrently": "^9.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "wait-on": "^8.0.2"
   },
-  "dependencies": {    
+  "dependencies": {
     "dotenv": "^16.4.7",
     "joi": "^17.13.3",
     "node-fetch": "^3.3.2",
@@ -23,6 +27,6 @@
   "workspaces": [
     "frontend/",
     "backend/",
-    "packages/*"
+    "core/"
   ]
 }

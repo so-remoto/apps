@@ -1,0 +1,22 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "clean": "powershell -Command \"if (Test-Path ./dist) { Remove-Item -Recurse -Force ./dist }\"",
+    "dev": "tsc --project tsconfig.json --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0",
+    "typescript": "^4.0.0"
+  }
+}

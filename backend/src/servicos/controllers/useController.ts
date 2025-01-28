@@ -1,7 +1,9 @@
-
 import { Request, Response } from 'express';
 import { obterUsuarios, obterUsuarioPorId, criarUsuario, atualizarUsuario, deletarUsuario } from "../repositories/repositorioUsuario";
-
+import { criarPerfilComPermissoes } from "../repositories/repositorioPerfil";
+const convertDateToString = (date: Date | string | undefined): string | undefined => {
+  return date instanceof Date ? date.toISOString() : date;
+};
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const usuarios = await obterUsuarios();
@@ -13,8 +15,7 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
       details: error instanceof Error ? error.message : 'Erro desconhecido'
     });
   }
-}
-
+};
 export const getUserById = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
@@ -31,10 +32,12 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
       details: error instanceof Error ? error.message : 'Erro desconhecido'
     });
   }
-}
-
+};
 export const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
+    // Convertendo datas para strings
+    req.body.dataCriacao = convertDateToString(req.body.dataCriacao);
+    req.body.tokenExpiracao = convertDateToString(req.body.tokenExpiracao);
     const novoUsuario = await criarUsuario(req.body);
     res.status(201).json(novoUsuario);
   } catch (error) {
@@ -45,11 +48,13 @@ export const createUser = async (req: Request, res: Response): Promise<void> => 
       details: error instanceof Error ? error.message : 'Erro desconhecido'
     });
   }
-}
-
+};
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
+    // Convertendo datas para strings
+    req.body.dataCriacao = convertDateToString(req.body.dataCriacao);
+    req.body.tokenExpiracao = convertDateToString(req.body.tokenExpiracao);
     const usuarioAtualizado = await atualizarUsuario(id, req.body);
     if (usuarioAtualizado) {
       res.status(200).json(usuarioAtualizado);
@@ -64,8 +69,7 @@ export const updateUser = async (req: Request, res: Response): Promise<void> => 
       details: error instanceof Error ? error.message : 'Erro desconhecido'
     });
   }
-}
-
+};
 export const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
@@ -78,4 +82,17 @@ export const deleteUser = async (req: Request, res: Response): Promise<void> => 
       details: error instanceof Error ? error.message : 'Erro desconhecido'
     });
   }
-}
+};
+export const createProfile = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const novoPerfil = await criarPerfilComPermissoes(req.body);
+    res.status(201).json(novoPerfil);
+  } catch (error) {
+    console.error('Erro ao criar perfil, Controller:', error);
+    const statusCode = error instanceof Error && error.message.includes('validação') ? 400 : 500;
+    res.status(statusCode).json({
+      error: 'Erro ao criar perfil',
+      details: error instanceof Error ? error.message : 'Erro desconhecido'
+    });
+  }
+};

@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/servicos/controllers/usecontroller.ts","./src/servicos/repositories/repositorioperfil.ts","./src/servicos/repositories/repositoriopermissao.ts","./src/servicos/repositories/repositoriousuario.ts","./src/servicos/routes/userroutes.ts"],"version":"5.7.3"}
